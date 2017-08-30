@@ -12,11 +12,7 @@ filename_hist = [histology_dir 'Cut_Histology4.mat'];
 load(filename_hist);
 
 % tmp
-%registerSliceToVolume(data_cyl_cut,Hist,'lower_limit',100, 'upper_limit', 890,'calculate_features', 1);
+registerSliceToVolume(data_cyl_cut,Hist,'lower_limit',100, 'upper_limit', 890,'calculate_features', 1);
 
-<<<<<<< HEAD
-registerSliceToVolume(Data3D,histology);
-=======
 
->>>>>>> master
 
