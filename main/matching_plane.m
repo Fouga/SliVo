@@ -1,5 +1,25 @@
 function [B,inliers]=matching_plane(surf_3D, options)
-%%%                             THE CODE
+
+% Builds a 3D point cloud from corresponding feature points between a
+% histology and each image of the 3D volume. Then by weighting each point
+% in this sparse point cloud, it discards the ones with the lowest weights.
+% The plane in the densest part of the cloud is fit using RANSAC robust
+% fit.
+%
+% Usage:   [B,inliers]=matching_plane(surf_3D, options)
+%
+% Input:  surf_3D - a cell containing coordintes of the matcing points
+%         options -  a structure containing various parameter values needed by
+%         slice to volume registration 
+%
+% Output: B - normal vector of the plane that contains the highest number
+% of inliers
+%         inliers - number of inliers for this plane
+%
+% See also: SliVo_parseInputs, find_equi_number, ransacfitplane_density
+%
+% From the project, (https://github.com/Fouga/).
+% Copyright © 2017 Natalia Chicherova.
 
 X_size = options.size(1);
 Y_size = options.size(2);
