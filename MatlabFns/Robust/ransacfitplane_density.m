@@ -116,19 +116,13 @@ function r = isdegenerate(X,angle_constr)
     n_plane = n_plane/norm(n_plane);
     %normal=[n_plane(1), n_plane(2), n_plane(3)];
     angle=acos(n_plane(3)/norm(n_plane));
-
     
+    % constaints on plane angle
     if(angle<(angle_constr) || angle>(pi-angle_constr))
            % The three columns of X are the coords of the 3 points.
          r_stack = iscolinear(X(:,1),X(:,2),X(:,3));
     end
     r = r_stack;
-
-%     disp(angle*180/pi);
-
-    
-    %%%%check the angle
-    % cross prod of diff
-    
+  
     
     

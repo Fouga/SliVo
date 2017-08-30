@@ -219,7 +219,6 @@ function [M, inliers] = ransac_density(x, fittingfn, distfn, degenfn, s, t, feed
     end
     
     if feedback, fprintf('\n'); end
-    trialcount
     if ~isnan(bestM)   % We got a solution
         M = bestM;
         inliers = bestinliers;
