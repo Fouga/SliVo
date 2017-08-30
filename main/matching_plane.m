@@ -35,7 +35,7 @@ end
 
 %first smooth the data to find locations with high densities
 siz=181;%181; %kernal size
-sigma = siz/2.34/2;%smoothing size
+sigma = (siz-1)/.6;%smoothing size
 siz = (siz-1)./2;
 x = linspace(-siz, siz, siz);
 gaussFilter = exp(-x .^ 2 / (2 * sigma ^ 2));
@@ -45,7 +45,7 @@ clear matr
 matr_smoothXY = convn(matr_smoothX,gaussFilter','same');
 clear matr_smoothX
 siz=5;
-sigma = siz/2.34/2;%sigma = 0.65;
+sigma = (siz-1)/6;%sigma = 0.65;
 siz = (siz-1)./2;
 x = linspace(-siz, siz, siz);
 gaussFilter = exp(-x .^ 2 / (2 * sigma ^ 2));
