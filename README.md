@@ -5,6 +5,8 @@ Slice to volume registration pipeline developed for 2D histological slide to 3D 
 Natalia Chicherova, Ketut Fundana, Bert Müller, Philippe C. Cattin,
 [Histology to μCT Data Matching Using Landmarks and a Density Biased RANSAC](https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31), Lecture Notes in Computer Science - MICCAI 2014 8673: 243–250.
 
+or see in ./pdf/Histology_to_mCT_Data_Matching_using_Landmarks_and_a_Density_Biased_RANSAC.pdf
+
 # Example
 ```Matlab
 % example of use to register a 2D slice to a 3D volume
