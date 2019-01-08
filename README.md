@@ -4,8 +4,7 @@ This 2D to 3D registration pipeline is developed to help localizing a histologic
 
 The extension of the algorithm can be also applied to MRI. The best performance in this case showed not invariant to rotation extended [SS](https://ieeexplore.ieee.org/abstract/document/4270223) descriptor that is called SL1. 
 
-<img src="https://github.com/Fouga/SliVo/files/2737229/Pipeline2.pdf" />
-[Pipeline2.pdf](https://github.com/Fouga/SliVo/files/2737229/Pipeline2.pdf)
+<img src="![pipeline](https://user-images.githubusercontent.com/17926378/50838463-55de5b00-135e-11e9-808a-2f8d29446d97.png)" />
 
 
 Details of the algorithm are explained in the following papers:
