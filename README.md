@@ -4,16 +4,16 @@ This 2D to 3D registration pipeline is developed to help localizing a histologic
 
 The extension of the algorithm can be also applied to MRI. The best performance in this case showed not invariant to rotation extended [SS](https://ieeexplore.ieee.org/abstract/document/4270223) descriptor that is called SL1. 
 
-<img src="https://github.com/Fouga/BacteriaSegmentationSVM/blob/gh-pages/Pipeline2.pdf" />
-
+<img src="https://github.com/Fouga/SliVo/files/2737229/Pipeline2.pdf" />
+[Pipeline2.pdf](https://github.com/Fouga/SliVo/files/2737229/Pipeline2.pdf)
 
 
 Details of the algorithm are explained in the following papers:
 
-Natalia Chicherova, Ketut Fundana, Bert Müller, Philippe C. Cattin,
+[1] Natalia Chicherova, Ketut Fundana, Bert Müller, Philippe C. Cattin,
 [Histology to μCT Data Matching Using Landmarks and a Density Biased RANSAC](https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31), Lecture Notes in Computer Science - MICCAI 2014 8673: 243–250.
 
-Chicherova, N., Hieber, S.E., Khimchenko, A., Bikis, C., Müller, B., Cattin, P.C.
+[2] Chicherova, N., Hieber, S.E., Khimchenko, A., Bikis, C., Müller, B., Cattin, P.C.
 [Automatic deformable registration of histological slides to μCT volume data](https://onlinelibrary.wiley.com/doi/full/10.1111/jmi.12692), Journal of Microscopy 271, 49–61, 2018.
 
 or see in ./pdf/Histology_to_mCT_Data_Matching_using_Landmarks_and_a_Density_Biased_RANSAC.pdf
@@ -47,6 +47,7 @@ registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,..
 - histology must be converted to grayscale ``rgb2gray(image)``
 - better to use 8bit images
 - better limit or cut the 3D volume images with low ROI ``'upper_limit','lower_limit'``.  
+- the histology and the 2D slice obtained after RANSAC fit should be as precise as possible registered in 2D. One can use various 2D-2D registration algorithms to improve the performance. The correspondences based Ransac Homography registration (as in [1]((https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31))) is not implemented. 
 
 
 # Acknowledgements
