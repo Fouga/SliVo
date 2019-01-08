@@ -1,11 +1,10 @@
 # SliVo
 
-This 2D to 3D registration pipeline is developed to help localizing a histological slice in a micro computed tomography (CT) volume. The algorithms is based on coarse-to-fine approach. First, the position of the 2D histological slice is initialized as a plane in the 3D CT volume and, then, the plane coordinates are optimized using more sensitive similarity measure. 
+This 2D to 3D registration pipeline is developed to help localizing a histological slice in a micro computed tomography (CT) volume. The algorithm is based on coarse-to-fine approach. First, the position of the 2D histological slice is initialized as a plane in the 3D CT volume and, then, the plane coordinates are optimized using more sensitive similarity measure. 
 
 The extension of the algorithm can be also applied to MRI. The best performance in this case showed not invariant to rotation extended [SS](https://ieeexplore.ieee.org/abstract/document/4270223) descriptor that is called SL1. 
 
-![pipeline](https://user-images.githubusercontent.com/17926378/50838463-55de5b00-135e-11e9-808a-2f8d29446d97.png)
-
+![pipeline](https://user-images.githubusercontent.com/17926378/50839872-912e5900-1361-11e9-9fbf-422c0fecbce4.png)
 
 Details of the algorithm are explained in the following papers:
 
@@ -46,7 +45,7 @@ registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,..
 - histology must be converted to grayscale ``rgb2gray(image)``
 - better to use 8bit images
 - better limit or cut the 3D volume images with low ROI ``'upper_limit','lower_limit'``.  
-- the histology and the 2D slice obtained after RANSAC fit should be as precise as possible registered in 2D. One can use various 2D-2D registration algorithms to improve the performance. The correspondences based Ransac Homography registration (as in [1]((https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31))) is not implemented. 
+- the histology and the 2D slice obtained after RANSAC fit should be as precise as possible registered in 2D. One can use various 2D-2D registration algorithms to improve the performance. The correspondences based Ransac Homography registration (as in [1]) is not implemented. 
 
 
 # Acknowledgements
