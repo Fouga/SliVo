@@ -12,7 +12,7 @@ parfor i = 1:Zsize
 end
 
 % load histology
-histologyName = './Data/Resized_histology_0.23.png';
+histologyName = './Data/Resized_histology.png';
 Histology = imread(histologyName);
 
 registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,...
@@ -24,11 +24,11 @@ registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,..
 histologyName = './Data/Rotated_histology.png';
 Histology = imread(histologyName);
 
-% tmp
+% localize a histological slide in a 3D data
 registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,...
     'calculate_features', 1, 'optimization',1,'angle',pi/18,'rotation_invariance',0,...
      'radius',2.2);
-%%
+%% MRI volume
 clear all
 close all
 % load 3D MRI volume 
@@ -54,7 +54,7 @@ t = toc/60
 histologyName = './Data/Rotated_histology.png';
 Histology = imread(histologyName);
 
-% tmp
+% localize a histological slide in a 3D data
 tic;
 registerSliceToVolume(MRIvolume,Histology,'lower_limit',40, 'upper_limit', 400,...
     'calculate_features', 1, 'optimization',1,'angle',pi/18,'rotation_invariance',0,...

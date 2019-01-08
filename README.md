@@ -1,9 +1,20 @@
 # SliVo
 
-Slice to volume registration pipeline developed for 2D histological slide to 3D micro computed tomography registration. Details of the algorithm are explained in 
+This 2D to 3D registration pipeline is developed to help localizing a histological slice in a micro computed tomography (CT) volume. The algorithms is based on coarse-to-fine approach. First, the position of the 2D histological slice is initialized as a plane in the 3D CT volume and, then, the plane coordinates are optimized using more sensitive similarity measure. 
+
+The extension of the algorithm can be also applied to MRI. The best performance in this case showed not invariant to rotation extended [SS](https://ieeexplore.ieee.org/abstract/document/4270223) descriptor that is called SL1. 
+
+<img src="https://github.com/Fouga/BacteriaSegmentationSVM/blob/gh-pages/Pipeline2.pdf" />
+
+
+
+Details of the algorithm are explained in the following papers:
 
 Natalia Chicherova, Ketut Fundana, Bert Müller, Philippe C. Cattin,
 [Histology to μCT Data Matching Using Landmarks and a Density Biased RANSAC](https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31), Lecture Notes in Computer Science - MICCAI 2014 8673: 243–250.
+
+Chicherova, N., Hieber, S.E., Khimchenko, A., Bikis, C., Müller, B., Cattin, P.C.
+[Automatic deformable registration of histological slides to μCT volume data](https://onlinelibrary.wiley.com/doi/full/10.1111/jmi.12692), Journal of Microscopy 271, 49–61, 2018.
 
 or see in ./pdf/Histology_to_mCT_Data_Matching_using_Landmarks_and_a_Density_Biased_RANSAC.pdf
 
@@ -12,18 +23,24 @@ or see in ./pdf/Histology_to_mCT_Data_Matching_using_Landmarks_and_a_Density_Bia
 % example of use to register a 2D slice to a 3D volume
 clear all
 close all
-% load 3D volume 
-volume_dir = './Data/';
-filename=[volume_dir 'CT_data.mat'];
-load(filename);
+% load 3D CT volume 
+volume_dir = './Data/3dCT/';
+imds =imageDatastore(fullfile(volume_dir), 'FileExtensions', {'.tif'});
+[Xsize Ysize] = size(readimage(imds,1));
+Zsize = size(imds.Files,1);
+CTvolume = zeros(Xsize, Ysize, Zsize, 'uint8');
+parfor i = 1:Zsize
+    CTvolume(:,:,i) = readimage(imds,i);
+end
 
 % load grayscale histology
-histology_dir = './Data/';
-filename_hist = [histology_dir 'Histology.mat'];
-load(filename_hist);
+histologyName = './Data/Resized_histology.png';
+Histology = imread(histologyName);
 
 % localize a histological slide in a 3D data
-registerSliceToVolume(CT_data,Histology,'lower_limit',100, 'upper_limit', 890,'calculate_features', 1);
+registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,...
+    'calculate_features', 1, 'optimization',1,'angle',pi/18,'rotation_invariance',1,...
+    'method2dregistration','NCC_NMI', 'radius',2.2);
 ```
 
 # Implementation details
