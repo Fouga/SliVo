@@ -12,7 +12,13 @@ function options = SliVo_parseInputs(v)
 % See also: registerSliceToVolume
 %
 % From the project, (https://github.com/Fouga/).
-% Copyright © 2017 Natalia Chicherova.
+% Author: 2019 Natalia Chicherova.
+%
+% If you use this code please cite my paper:
+% Chicherova, N., Hieber, S.E., Khimchenko, A., Bikis, C., Müuller, B.,
+% Cattin, P.C., 2018. Automatic deformable registration of histological
+% slides to μCT volume data. Journal of Microscopy 271, 49–61.
+
 
 if ~isempty(v)
     if iscell(v{1})
@@ -21,18 +27,24 @@ if ~isempty(v)
 end
 
 %% options that may be specified by the user
-options.feature_detector           = []; % default SURF
+options.feature_detector           = 'SURF'; % default SURF
+options.rotation_invariance           = 1; % use rotation invariant Feature detectro by default
 options.filter_radius_ratio             = 2.8;   % default value = 2.8
 options.lower_limit             = [];   % default value = 
 options.upper_limit    = [];   % default value = 
-options.angle             = pi/8;   % default value = pi/8
+options.angle             = pi/10;   % default value = pi/10
 options.calculate_features      = 1; % if you do not need to calculate features
 options.number             = 0;   % number of points to leave after filtering, by default it is calculated automatically
+options.optimization       = 1; % after the initilization with the feature detectors,
+% the plane parameters can be optimized using NMI. By default the
+% optimization is done
+options.method2dregistration = 'NCC_NMI'; % method for 2D 2D registration
 
 options.folder_source           = [];
 options.folder_destination      = [];
 options.folder_features         = [];
 options.folder_matches          = [];
+options.folder_optimal          = [];
 options.filenames               = {};
 
 if nargin==0 || isempty(v)
@@ -55,6 +67,14 @@ for i = 1:numel(v)
                 options.angle   = getParam(v,i);  
              case 'number'
                 options.number   = getParam(v,i);  
+             case 'feature_detector'
+                options.feature_detector  = getParam(v,i);  
+             case 'rotation_invariance'                
+                options.rotation_invariance = getParam(v,i);  
+             case 'optimization'
+                options.optimization  = getParam(v,i);  
+             case 'method2dregistration'
+                options.method2dregistration  = getParam(v,i);  
              case 'source'
                 options.folder_source  = getFolder(v,i);  
             case 'destination'
@@ -74,8 +94,10 @@ param = [];
 if i+1 <= numel(v)
     if isnumeric(v{i+1})
         param = v{i+1};
+    elseif ischar(v{i+1})
+           param = v{i+1};
     else
-        warning('SliVo:parseInput', 'Expected numeric value\n');
+        warning('SliVo:parseInput', 'The parameter is not correct\n');
     end
 end
 
@@ -84,10 +106,10 @@ function param = getFolder(v,i)
 
 param = [];
 if i+1 <= numel(v)
-    if isdir(v{i+1})
+    if isfolder(v{i+1})
         param = v{i+1};
     else
-        if isstr(v{i+1});
+        if ischar(v{i+1})
             param = v{i+1};
             [success message] = mkdir(param);
             if ~success

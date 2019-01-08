@@ -24,6 +24,7 @@ for i=1:length(ipts)
    if(i>40), verbose=false; end
    
    ip=ipts(i);
+   ip.scale = 1;
    % determine descriptor size
    if (extended), ip.descriptorLength = 128; else ip.descriptorLength = 64; end
 

@@ -93,10 +93,12 @@ clear matr_smoothXYZ
 %sort them and pick with the highest weights
 [vsort,idx] = sort(v,'ascend');%idx-where a big value stands in v
 if options.number ==0
-    total_num = length(X_r)
-    num = find_equi_number(total_num)
-else num = options.number;
+    total_num = length(X_r);
+    num = find_equi_number(total_num);
+else
+    num = options.number;
 end
+fprintf('%i feature points out of %i left after filtering\n',num, total_num);
 
 num_retain = num; 
 x_ransac = X_r(idx(end-num_retain:end));
