@@ -8,11 +8,15 @@ The extension of the algorithm can be also applied to MRI. The best performance 
 
 Details of the algorithm are explained in the following papers:
 
-[1] Natalia Chicherova, Ketut Fundana, Bert Müller, Philippe C. Cattin,
-[Histology to μCT Data Matching Using Landmarks and a Density Biased RANSAC](https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31), Lecture Notes in Computer Science - MICCAI 2014 8673: 243–250.
+[1] Chicherova, N., Hieber, S.E., Bitterli, B., Schulz, G., Cattin, P.C., Müller, B., 
+[Automatic 2D-3D Registration of Histology, MRI and CT data](), ???Journal of Microscopy 271, 49–61, 2018.
 
 [2] Chicherova, N., Hieber, S.E., Khimchenko, A., Bikis, C., Müller, B., Cattin, P.C.
 [Automatic deformable registration of histological slides to μCT volume data](https://onlinelibrary.wiley.com/doi/full/10.1111/jmi.12692), Journal of Microscopy 271, 49–61, 2018.
+
+[3] Natalia Chicherova, Ketut Fundana, Bert Müller, Philippe C. Cattin,
+[Histology to μCT Data Matching Using Landmarks and a Density Biased RANSAC](https://link.springer.com/chapter/10.1007/978-3-319-10404-1_31), Lecture Notes in Computer Science - MICCAI 2014 8673: 243–250.
+
 
 or see in ./pdf/Histology_to_mCT_Data_Matching_using_Landmarks_and_a_Density_Biased_RANSAC.pdf
 
@@ -45,9 +49,11 @@ registerSliceToVolume(CTvolume,Histology,'lower_limit',40, 'upper_limit', 400,..
 - histology must be converted to grayscale ``rgb2gray(image)``
 - better to use 8bit images
 - better limit or cut the 3D volume images with low ROI ``'upper_limit','lower_limit'``.  
-- the histology and the 2D slice obtained after RANSAC fit should be as precise as possible registered in 2D. One can use various 2D-2D registration algorithms to improve the performance. The correspondences based Ransac Homography registration (as in [1]) is not implemented. 
+- the histology and the 2D slice obtained after RANSAC fit should be as precise as possible registered in 2D. One can use various 2D-2D registration algorithms to improve the performance. The correspondences based Ransac Homography registration (as in [3]) is not implemented. 
 
 
 # Acknowledgements
 1. D. Kroon for [SURF](http://ch.mathworks.com/matlabcentral/fileexchange/28300-opensurf--including-image-warp-)
 2. Peter Kovesi for [RANSAC](http://www.peterkovesi.com/matlabfns/)
+3. Dirk Padfield for [Cross-correlation](https://ch.mathworks.com/matlabcentral/fileexchange/29005-generalized-normalized-cross-correlation)
+4. John D'Errico for [fminsearchbnd](https://ch.mathworks.com/matlabcentral/fileexchange/8277-fminsearchbnd-fminsearchcon)
